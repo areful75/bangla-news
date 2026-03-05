@@ -5,7 +5,7 @@ import { AuthContext } from '../context/AuthProvider';
 
 const Navbar = () => {
     const userInfo=use(AuthContext);
-    console.log(userInfo.name);
+   // console.log(userInfo.name);
 
     return (
     //     <div className="navbar  px-0">
