@@ -4,7 +4,18 @@ import user from '../assets/user.png';
 import { AuthContext } from '../context/AuthProvider';
 
 const Navbar = () => {
-    const userInfo=use(AuthContext);
+    const {user,logOutUser}=use(AuthContext);
+
+    const handleLogout=() => {
+        //console.log("logout");
+        logOutUser()
+        .then(()=>{
+           alert("Logout successful");
+        })
+        .catch(error=>{
+            console.log(error);
+        })
+    }
    // console.log(userInfo.name);
 
     return (
@@ -51,7 +62,7 @@ const Navbar = () => {
     //   </div>
     <div className='flex items-center justify-between py-5'>
         <div>
-
+        {user && user.email}
         </div>
         <div className="nav flex gap-5 text-accent">
             <NavLink to="/">Home</NavLink>
@@ -62,7 +73,10 @@ const Navbar = () => {
         </div>
         <div className="login-btn flex gap-5">
             <img src={user} alt="" />
-        <Link to="/auth/login" ><button className='btn btn-primary px-10'>Login</button></Link>
+        {
+                user ? <button onClick={handleLogout} className='btn btn-neutral btn btn-primary px-10'>Logout</button> :
+                <Link to="/auth/login" ><button className='btn btn-primary px-10'>Login</button></Link>
+        }
         </div>
     </div>
     );
