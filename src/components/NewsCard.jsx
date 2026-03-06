@@ -13,9 +13,11 @@
 
 import React from "react";
 import { FaStar, FaEye, FaShareAlt, FaBookmark } from "react-icons/fa";
+import { Link } from "react-router";
 
 const NewsCard = ({ news }) => {
   const {
+    id,
     title,
     thumbnail_url,
     details,
@@ -73,9 +75,9 @@ const NewsCard = ({ news }) => {
         </p>
 
         {details.length > 250 && (
-          <button className="text-orange-500 font-semibold mt-2">
-            Read More
-          </button>
+          <Link to={`/news-details/${id}`}><button className="text-orange-500 font-semibold mt-2">
+          Read More
+        </button></Link>
         )}
 
         <div className="divider"></div>
