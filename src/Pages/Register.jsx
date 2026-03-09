@@ -3,10 +3,11 @@ import { Link } from 'react-router';
 import { AuthContext } from '../context/AuthProvider';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase/firebase.config';
+import { set } from 'date-fns';
 
 const Register = () => {
 
-  const {createUser,setUser}=use(AuthContext);
+  const {createUser,setUser,updateUser}=use(AuthContext);
   const [successMassage,setSuccessMessage]=useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -23,7 +24,15 @@ const Register = () => {
     createUser(email,password)
     .then(result=>{
       const user=result.user;
-      console.log(user);
+      //console.log(user);
+      updateUser({displayName:name,photoURL:photo}).then(()=>{
+        setUser(user);
+      })
+      .catch(error=>{
+        console.log(error);
+        setUser(user);
+      })
+      
       setSuccessMessage("User created successfully");
     })
     .catch(error=>{
@@ -49,7 +58,7 @@ const Register = () => {
           <label className="label">Password</label>
           <input name='password' type="password" className="input" placeholder="Password" />
           <div><a className="link link-hover">Forgot password?</a></div>
-          <button className="btn btn-neutral mt-4 w-full">Login</button>
+          <button className="btn btn-neutral mt-4 w-full">Register</button>
         </form>
         <p className='font-semibold text-center'>Already have an account ?Please <Link className='text-secondary' to="/auth/login">Login</Link></p>
         {

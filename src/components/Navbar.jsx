@@ -2,10 +2,11 @@ import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import user from '../assets/user.png';
 import { AuthContext } from '../context/AuthProvider';
+import userIcon from '../assets/user.png';
 
 const Navbar = () => {
     const {user,logOutUser}=use(AuthContext);
-
+    //console.log(user);
     const handleLogout=() => {
         //console.log("logout");
         logOutUser()
@@ -72,6 +73,7 @@ const Navbar = () => {
 
         </div>
         <div className="login-btn flex gap-5">
+            <img className='w-12 rounded-full' src={`${user ? user.photoURL : userIcon}`} alt="" />
             <img src={user} alt="" />
         {
                 user ? <button onClick={handleLogout} className='btn btn-neutral btn btn-primary px-10'>Logout</button> :

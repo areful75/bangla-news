@@ -1,8 +1,12 @@
 import React, { use, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthProvider';
 
 const Login = () => {
+  const location=useLocation();
+
+  const navigate=useNavigate();
+  console.log(location.state);
   const [successMassage,setSuccessMessage]=useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -17,6 +21,8 @@ const Login = () => {
     .then(result=>{
       const user=result.user;
       console.log(user);
+      navigate(location.state || "/");
+      
       setSuccessMessage("Login successful");
     })
     .catch(error=>{
